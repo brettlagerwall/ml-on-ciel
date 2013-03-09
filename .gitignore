@@ -1,0 +1,7 @@
+brett.jar
+helloworld/*.class
+helloworld/*~
+kmeans/*.class
+kmeans/*~
+smithwaterman/*.class
+smithwaterman/*~
