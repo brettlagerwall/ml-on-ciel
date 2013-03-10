@@ -20,15 +20,14 @@ public class CanopyInitTask implements FirstClassJavaTask {
 		double t2 = Double.parseDouble(Ciel.args[4]);
 
 		Reference data;
-		if (Ciel.args.length > 4) {
+		if (Ciel.args.length > 5) {
 			// Read in the data 
 			data = null;
 		}
 		else {
 			// Create the data
 			data = Ciel.spawn(new CanopyDataGenerator(numVectors,
-					numDimensions, 0), null, 1)[0];
-			//Ciel.blockOn(data);
+					numDimensions, 0), null, 1)[0];		
 		}
 
 		Reference[] mapperOutputs = new Reference[numMappers];
