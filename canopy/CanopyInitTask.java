@@ -15,19 +15,30 @@ public class CanopyInitTask implements FirstClassJavaTask {
 	public void invoke() throws Exception {
 		int numVectors = Integer.parseInt(Ciel.args[0]);
 		int numDimensions = Integer.parseInt(Ciel.args[1]);
+		int numMappers = Integer.parseInt(Ciel.args[2]);
 		double t1 = Double.parseDouble(Ciel.args[3]);
 		double t2 = Double.parseDouble(Ciel.args[4]);
 
 		Reference data;
 		if (Ciel.args.length > 4) {
 			// Read in the data 
+			data = null;
 		}
 		else {
 			// Create the data
 			data = Ciel.spawn(new CanopyDataGenerator(numVectors,
 					numDimensions, 0), null, 1)[0];
-			Ciel.blockOn(data);
+			//Ciel.blockOn(data);
 		}
+
+		Reference[] mapperOutputs = new Reference[numMappers];
+		for (int i = 0; i < numMappers; i++) {
+			mapperOutputs[i] = Ciel.spawn(new CanopyMapper
+				(data, numVectors, numDimensions, numMappers, t1, t2, i),
+				null, 1)[0];
+		}
+
+		Ciel.blockOn(mapperOutputs[0], mapperOutputs[1], mapperOutputs[2]);
 
 	}
 
