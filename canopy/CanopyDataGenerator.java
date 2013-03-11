@@ -29,7 +29,7 @@ public class CanopyDataGenerator implements FirstClassJavaTask {
 	@Override
 	public void invoke() throws Exception {
 
-		double minValue = -1000000.0;
+		double minValue = 0.0;
 		double maxValue = 1000000.0;
 		
 		WritableReference out = Ciel.RPC.getOutputFilename(0);
