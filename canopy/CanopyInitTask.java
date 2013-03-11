@@ -37,7 +37,8 @@ public class CanopyInitTask implements FirstClassJavaTask {
 				null, 1)[0];
 		}
 
-		Ciel.blockOn(mapperOutputs[0], mapperOutputs[1], mapperOutputs[2]);
+		Ciel.tailSpawn(new CanopyReducer
+			(mapperOutputs, numDimensions, t1, t2), null);
 
 	}
 
