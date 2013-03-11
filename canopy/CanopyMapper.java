@@ -69,6 +69,7 @@ public class CanopyMapper implements FirstClassJavaTask {
 
 		print(vectors, "/tmp/data/vectors" + idNum + ".txt");
 
+		// Must eventually change the seed being used below.
 		Random rand = new Random(idNum);
 		ArrayList<double[]> centres = new ArrayList<double[]>();
 		ArrayList<double[]> marked = new ArrayList<double[]>();
