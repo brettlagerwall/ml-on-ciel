@@ -1,5 +1,8 @@
 package canopy;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
 import java.io.DataOutputStream;
 import java.io.BufferedOutputStream;
 import java.util.Random;
@@ -28,6 +31,14 @@ public class CanopyDataGenerator implements FirstClassJavaTask {
 
 	@Override
 	public void invoke() throws Exception {
+// To be removed
+		File file = new File("/tmp/data/data.txt");
+		if (!file.exists()) {
+			file.createNewFile();
+		}
+		FileWriter fw = new FileWriter(file.getAbsoluteFile());
+		BufferedWriter bw = new BufferedWriter(fw);
+//
 
 		double minValue = 0.0;
 		double maxValue = 1000000.0;
@@ -42,11 +53,15 @@ public class CanopyDataGenerator implements FirstClassJavaTask {
 
 		for (int i = 0; i < numVectors; i++) {
 			for (int j = 0; j < numDimensions; j++) {
-				dos.writeDouble(rand.nextDouble() * (maxValue - minValue) + 						minValue);
+				double d = rand.nextDouble() * (maxValue - minValue)
+					+ minValue;
+				dos.writeDouble(d);
+				bw.write(d + " ");
 			}
+			bw.write("\n");
 		}
 		dos.close();
-
+		bw.close();
 	}
 
 	@Override
