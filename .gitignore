@@ -10,3 +10,5 @@ canopy/*.class
 canopy/*~
 datageneration/*.class
 datageneration/*~
+meanshift/*.class
+meanshift/*~
