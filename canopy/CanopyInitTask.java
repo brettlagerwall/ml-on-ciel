@@ -1,5 +1,7 @@
 package canopy;
 
+import datageneration.DataGenerator;
+
 import com.asgow.ciel.executor.Ciel;
 import com.asgow.ciel.references.Reference;
 import com.asgow.ciel.tasks.FirstClassJavaTask;
@@ -26,7 +28,7 @@ public class CanopyInitTask implements FirstClassJavaTask {
 		}
 		else {
 			// Create the data
-			data = Ciel.spawn(new CanopyDataGenerator(numVectors,
+			data = Ciel.spawn(new DataGenerator(numVectors,
 					numDimensions, 0), null, 1)[0];		
 		}
 

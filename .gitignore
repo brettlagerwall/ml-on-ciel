@@ -1,3 +1,4 @@
+.gitignore~
 brett.jar
 helloworld/*.class
 helloworld/*~
@@ -7,3 +8,5 @@ smithwaterman/*.class
 smithwaterman/*~
 canopy/*.class
 canopy/*~
+datageneration/*.class
+datageneration/*~

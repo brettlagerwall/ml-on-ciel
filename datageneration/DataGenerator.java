@@ -1,4 +1,4 @@
-package canopy;
+package datageneration;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -12,13 +12,13 @@ import com.asgow.ciel.references.Reference;
 import com.asgow.ciel.references.WritableReference;
 import com.asgow.ciel.tasks.FirstClassJavaTask;
 
-public class CanopyDataGenerator implements FirstClassJavaTask {
+public class DataGenerator implements FirstClassJavaTask {
 
 	private int numVectors;
 	private int numDimensions;
 	private int seed;
 	
-	public CanopyDataGenerator(int numVectors, int numDimensions, int seed) {
+	public DataGenerator(int numVectors, int numDimensions, int seed) {
 		this.numVectors = numVectors;
 		this.numDimensions = numDimensions;
 		this.seed = seed;
