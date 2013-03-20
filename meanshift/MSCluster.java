@@ -47,6 +47,10 @@ public class MSCluster implements Serializable {
 		count = 0;
 	}
 
+	public List<double[]> getBoundPoints() {
+		return boundPoints;
+	}
+
 	private void calculateCentre() {
 		if (count > 0) {
 			for (int i = 0; i < centre.length; i++) {
