@@ -10,7 +10,6 @@ public class MSCluster implements Serializable {
 	private List<double[]> boundPoints = new ArrayList<double[]>();
 	private int count = 0;
 	private double[] centre;
-	private boolean updateNecessary = false;
 
 	public MSCluster(int numDimensions) {
 		centre = new double[numDimensions];
@@ -19,7 +18,6 @@ public class MSCluster implements Serializable {
 	public void add(double[] point) {
 		boundPoints.add(point);
 		count++;
-		updateNecessary = true;
 	}
 
 	/*
@@ -30,16 +28,15 @@ public class MSCluster implements Serializable {
 		if (getDistance(point, oldCentre) < threshold) {		
 			boundPoints.add(point);
 			count++;
-			updateNecessary = true;
 		}
 	}
 
 	public double[] getCentre() {
-		if (updateNecessary) {
-			calculateCentre();
-		}
-
 		return centre;
+	}
+
+	public void forceUpdateCentre() {
+		calculateCentre();
 	}
 
 	public void clear() {
@@ -49,6 +46,15 @@ public class MSCluster implements Serializable {
 
 	public List<double[]> getBoundPoints() {
 		return boundPoints;
+	}
+
+	public void merge(MSCluster other) {
+		boundPoints.addAll(other.boundPoints);
+		count += other.count;
+	}
+
+	public double getDistanceToCentre(double[] p) {
+		return getDistance(p, centre);
 	}
 
 	private void calculateCentre() {
@@ -61,7 +67,6 @@ public class MSCluster implements Serializable {
 				centre[i] = sum / count;
 			}
 		}
-		updateNecessary = false;
 	}
 
 	private double getDistance(double[] p1, double[] p2) {
