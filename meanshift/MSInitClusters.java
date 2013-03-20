@@ -15,11 +15,16 @@ public class MSInitClusters implements FirstClassJavaTask {
 	private Reference data;
 	private int numVectors;
 	private int numDimensions;
+	private int numMappers;
+	private int idNum;
 
-	public MSInitClusters(Reference data, int numVectors, int numDimensions) {
+	public MSInitClusters(Reference data, int numVectors, int numDimensions,
+		int numMappers, int idNum) {
 		this.data = data;
 		this.numVectors = numVectors;
 		this.numDimensions = numDimensions;
+		this.numMappers = numMappers;
+		this.idNum = idNum;
 	}
 
 	@Override
@@ -35,16 +40,28 @@ public class MSInitClusters implements FirstClassJavaTask {
 			(new BufferedInputStream((Ciel.RPC.getStreamForReference
 			(data, 1048576, false, true, false)), 1048576));
 
+		int vectorsPerMapper =
+			(int)(Math.ceil((double)numVectors / numMappers));
+
 		List<MSCluster> clusters = new ArrayList<MSCluster>();
 
 		for (int i = 0; i < numVectors; i++) {
-			MSCluster c = new MSCluster(numDimensions);
-			double[] point = new double[numDimensions];
-			for (int j = 0; j < numDimensions; j++) {
-				point[j] = inputStream.readDouble();
+			if (i >= vectorsPerMapper * idNum &&
+				i < vectorsPerMapper * (idNum + 1)) {
+
+				MSCluster c = new MSCluster(numDimensions);
+				double[] point = new double[numDimensions];
+				for (int j = 0; j < numDimensions; j++) {
+					point[j] = inputStream.readDouble();
+				}
+				c.add(point);
+				clusters.add(c);
 			}
-			c.add(point);
-			clusters.add(c);
+			else {
+				for (int j = 0; j < numDimensions; j++) {
+					inputStream.readDouble();
+				}
+			}
 		}
 
 		Ciel.returnObject(clusters);
