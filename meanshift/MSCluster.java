@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 import java.io.Serializable;
 
-public class MSCluster {
+public class MSCluster implements Serializable {
 
 	private List<double[]> boundPoints = new ArrayList<double[]>();
 	private int count = 0;
