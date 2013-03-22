@@ -17,14 +17,16 @@ public class MSInitClusters implements FirstClassJavaTask {
 	private int numDimensions;
 	private int numMappers;
 	private int idNum;
+	private double delta;
 
 	public MSInitClusters(Reference data, int numVectors, int numDimensions,
-		int numMappers, int idNum) {
+		int numMappers, int idNum, double delta) {
 		this.data = data;
 		this.numVectors = numVectors;
 		this.numDimensions = numDimensions;
 		this.numMappers = numMappers;
 		this.idNum = idNum;
+		this.delta = delta;
 	}
 
 	@Override
@@ -49,7 +51,7 @@ public class MSInitClusters implements FirstClassJavaTask {
 			if (i >= vectorsPerMapper * idNum &&
 				i < vectorsPerMapper * (idNum + 1)) {
 
-				MSCluster c = new MSCluster(numDimensions);
+				MSCluster c = new MSCluster(numDimensions, delta);
 				double[] point = new double[numDimensions];
 				for (int j = 0; j < numDimensions; j++) {
 					point[j] = inputStream.readDouble();
