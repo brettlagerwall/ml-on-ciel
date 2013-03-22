@@ -17,20 +17,20 @@ import com.asgow.ciel.tasks.FirstClassJavaTask;
 public class MSMapper implements FirstClassJavaTask {
 
 	private Reference clustersRef;
-	private int numVectors;
 	private int numDimensions;
 	private double t1;
 	private double t2;
 	private int idNum;
+	private int iteration;
 
-	public MSMapper(Reference clustersRef, int numVectors, int numDimensions,
-		double t1, double t2, int idNum) {
+	public MSMapper(Reference clustersRef, int numDimensions,
+		double t1, double t2, int idNum, int iteration) throws Exception {
 		this.clustersRef = clustersRef;
-		this.numVectors = numVectors;
 		this.numDimensions = numDimensions;
 		this.t1 = t1;
 		this.t2 = t2;
 		this.idNum = idNum;
+		this.iteration = iteration;
 	}
 	
 	@Override
@@ -52,7 +52,8 @@ public class MSMapper implements FirstClassJavaTask {
 		int i = 0;
 		for (MSCluster c: oldClusters) {
 			print(c.getBoundPoints(),
-				"/tmp/data/vectors_mapper" + idNum + "_c" + i + ".txt");
+				"/tmp/data/it" + iteration + "_mapper" +
+				idNum + "_c" + i + ".txt");
 			i++;
 		}
 
@@ -77,6 +78,7 @@ public class MSMapper implements FirstClassJavaTask {
 	*/
 	private void shiftToMean(MSCluster cluster) {
 		cluster.forceUpdateCentre();
+		System.out.println("Mapper" + idNum + ": " + "Updated centre");
 	}
 
 	/*
@@ -93,23 +95,28 @@ public class MSMapper implements FirstClassJavaTask {
 		MSCluster closestCoveringCluster = null;
 		double closestDistance = Double.MAX_VALUE;
 		for (MSCluster c: migratedClusters) {
-			double distance = c.getDistanceToCentre(c.getCentre());
+			double distance = c.getDistanceToCentre(cluster.getCentre());
+			System.out.println("Mapper" + idNum + ": Distance " + distance);
 			if (distance < t1) {
 				cluster.add(c.getCentre());
 				c.add(cluster.getCentre());
+				System.out.println("Mapper" + idNum + ": " + "Adding centres");
 			}
 
 			if (distance < t2 && distance < closestDistance) {
 				closestCoveringCluster = c;
 				closestDistance = distance;
+				System.out.println("Mapper" + idNum + ": " + "Possible merge");
 			}
 		}
 
 		if (closestCoveringCluster == null) {
 			migratedClusters.add(cluster);
+			System.out.println("Mapper" + idNum + ": " + "Added to list");
 		}
 		else {
 			closestCoveringCluster.merge(cluster);
+			System.out.println("Mapper" + idNum + ": " + "Merge occurring");
 		}
 	}
 
