@@ -12,3 +12,5 @@ datageneration/*.class
 datageneration/*~
 meanshift/*.class
 meanshift/*~
+README.bak
+README~

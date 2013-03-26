@@ -1,0 +1,52 @@
+Machine Learning on CIEL
+========================
+
+Machine Learning on CIEL provides a library of machine learning algorithms
+which are designed to run over CIEL.
+
+Why do we need this and why aren't existing libraries such as Apache Mahout
+sufficient? Well, Mahout and most other machine learning libraries which run
+on distributed computation engines make use of Hadoop. However, CIEL has a
+number of benefits over Hadoop -- especially for iterative machine learning
+algorithms (e.g. dynamic data-dependant control flow, arbitrary task
+dependencies, fault tolerance on all nodes). Thus, this project is an ongoing
+effort at implementing a machine learning library over CIEL.
+
+Requirements
+------------
+ciel -- https://github.com/mrry/ciel
+ciel-java -- https://github.com/mrry/ciel-java
+
+Installation
+------------
+Installing ml-on-ciel involves compiling the relevant java files and placing
+them in a jar file. Typically, both ciel-bindings-1.0-SNAPSHOT.jar and
+gson-1.7.1.jar need to be added to the class path for compilation. Below is
+an example setting up the canopy clustering algorithm.
+
+$ javac -cp ciel-bindings-1.0-SNAPSHOT.jar:gson-1.7.1.jar canopy/*.java &&
+jar cvf canopy.jar canopy/*.class
+
+Running
+-------
+To run one of the machine learning algorithms, first start a CIEL master and
+one or more workers. An algorithm can then be started using:
+
+$ ciel java nameOfJarFile nameOfAlgorithm [parameters]
+
+So, to run the canopy clustering algorithm, one may use something like this:
+
+$ ciel java canopy.jar canopy.CanopyInitTask 14 2 1 400000.0 200000.0
+
+It is important to understand the necessary parameters. Canopy clustering takes
+in 5 parameters (numVectors, numDimensions, numMappers, t1, t2) and mean shift
+clustering takes in 6 parameters (numVectors, numDimensions, numMappers, t1,
+t2, delta). It is necessary to fill in all of these parameters in the correct
+order.
+
+numVectors -- The number of vectors in the dataset.
+numDimensions -- The dimensionality of each vector in the dataset.
+numMappers -- The number of mapper tasks to be spawned.
+t1 -- A distance threshold, such that t1 > t2. See algorithm for more details.
+t2 -- A distance threshold, such that t1 > t2. See algorithm for more details.
+delta -- A distance threshold used for convergence testing.
