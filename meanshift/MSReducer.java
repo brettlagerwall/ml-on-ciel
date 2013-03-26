@@ -63,7 +63,7 @@ public class MSReducer implements FirstClassJavaTask {
 		for (MSCluster c: allClusters) {
 			ArrayList<double[]> temp = new ArrayList<double[]>();
 			temp.add(c.getCentre());
-			print(temp, "/tmp/data/reducer" + i + ".txt");
+			//print(temp, "/tmp/data/reducer" + i + ".txt");
 			i++;
 		}
 
@@ -213,8 +213,8 @@ public class MSReducer implements FirstClassJavaTask {
 				outputStream.writeDouble(centre[j]);
 			}
 
-			print((ArrayList<double[]>)c.getBoundPoints(),
-				"/tmp/data/cluster" + count + ".txt");
+			/*print((ArrayList<double[]>)c.getBoundPoints(),
+				"/tmp/data/cluster" + count + ".txt");*/
 			count++;
 		}
 		Ciel.returnPlainString("Complete");

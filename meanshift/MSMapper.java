@@ -50,12 +50,12 @@ public class MSMapper implements FirstClassJavaTask {
 		inputStream.close();
 
 		int i = 0;
-		for (MSCluster c: oldClusters) {
+		/*for (MSCluster c: oldClusters) {
 			print(c.getBoundPoints(),
 				"/tmp/data/it" + iteration + "_mapper" +
 				idNum + "_c" + i + ".txt");
 			i++;
-		}
+		}*/
 
 		//---------------------------------------------------------------------
 		// Now do the actual processing on the vectors.

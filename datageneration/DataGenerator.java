@@ -31,14 +31,13 @@ public class DataGenerator implements FirstClassJavaTask {
 
 	@Override
 	public void invoke() throws Exception {
-// To be removed
-		File file = new File("/tmp/data/data.txt");
+
+		/*File file = new File("/tmp/data/data.txt");
 		if (!file.exists()) {
 			file.createNewFile();
 		}
 		FileWriter fw = new FileWriter(file.getAbsoluteFile());
-		BufferedWriter bw = new BufferedWriter(fw);
-//
+		BufferedWriter bw = new BufferedWriter(fw);*/
 
 		double minValue = 0.0;
 		double maxValue = 1000000.0;
@@ -48,7 +47,8 @@ public class DataGenerator implements FirstClassJavaTask {
 		DataOutputStream dos = new DataOutputStream(
 			new BufferedOutputStream(out.open(), 1048576));
 		
-		Random rand = new Random(seed);
+		// The seed was only used for test purposes.
+		Random rand = new Random();
 
 
 		for (int i = 0; i < numVectors; i++) {
@@ -56,12 +56,12 @@ public class DataGenerator implements FirstClassJavaTask {
 				double d = rand.nextDouble() * (maxValue - minValue)
 					+ minValue;
 				dos.writeDouble(d);
-				bw.write(d + " ");
+				//bw.write(d + " ");
 			}
-			bw.write("\n");
+			//bw.write("\n");
 		}
 		dos.close();
-		bw.close();
+		//bw.close();
 	}
 
 	@Override

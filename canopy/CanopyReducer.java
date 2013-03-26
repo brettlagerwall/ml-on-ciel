@@ -50,11 +50,10 @@ public class CanopyReducer implements FirstClassJavaTask {
 			inputStream.close();
 		}
 
-		print(oldCentres, "/tmp/data/oldCentres.txt");
+		//print(oldCentres, "/tmp/data/oldCentres.txt");
 
 
-		// Must eventually change the seed being used below.
-		Random rand = new Random(1);
+		Random rand = new Random();
 		ArrayList<double[]> newCentres = new ArrayList<double[]>();
 		ArrayList<double[]> marked = new ArrayList<double[]>();
 
@@ -97,7 +96,7 @@ public class CanopyReducer implements FirstClassJavaTask {
 			}	
 		}
 
-		print(newCentres, "/tmp/data/finalCentres.txt");
+		//print(newCentres, "/tmp/data/finalCentres.txt");
 
 		WritableReference finalOutputReference =
 			Ciel.RPC.getNewObjectFilename("canopy_clusters");
